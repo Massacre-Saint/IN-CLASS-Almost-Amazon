@@ -34,7 +34,7 @@ const domEvents = () => {
     if (e.target.id.includes('view-author-btn')) {
       const [, authorFirebaseKey] = e.target.id.split('--');
       // console.warn(authorFirebaseKey);
-      viewAuthorDetails(authorFirebaseKey).then((authorsBooksArray) => viewAuthor(authorsBooksArray));
+      viewAuthorDetails(authorFirebaseKey).then((authorsBooksObject) => viewAuthor(authorsBooksObject));
     }
 
     if (e.target.id.includes('delete-author-btn')) {
