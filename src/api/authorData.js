@@ -5,7 +5,13 @@ const dbUrl = firebaseConfig.databaseURL;
 
 const getAuthors = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/authors.json`)
-    .then((response) => resolve(Object.values(response.data)))
+    .then((response) => {
+      if (response.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    })
     .catch((error) => reject(error));
 });
 
@@ -56,7 +62,6 @@ const getbooksByAuthor = (firebaseKey) => new Promise((resolve, reject) => {
     .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
 });
-
 
 export {
   getAuthors,
