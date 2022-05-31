@@ -3,7 +3,6 @@ import { createBook, getBooks, updateBook } from '../../api/bookData';
 import { showAuthors } from '../components/pages/authors';
 import { showBooks } from '../components/pages/books';
 
-
 const formEvents = () => {
   document.querySelector('#main-container').addEventListener('submit', (e) => {
     e.preventDefault();

@@ -8,7 +8,6 @@ import addBookForm from '../components/forms/addBookForm';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import { getSingleAuthor } from '../../api/authorData';
 
-
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
     if (e.target.id.includes('delete-book')) {
