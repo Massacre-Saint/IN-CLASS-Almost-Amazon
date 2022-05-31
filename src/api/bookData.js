@@ -31,8 +31,8 @@ const getSingleBook = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 // TODO: CREATE BOOK
-const createBook = (bookObject) => new Promise((resolve, reject) => {
-  axios.post(`$${dbUrl}/books.json`, bookObject)
+const createBook = (bookObj) => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/books.json`, bookObj)
     .then((response) => {
       const payload = { firebaseKey: response.data.name };
       axios.patch(`${dbUrl}/books/${response.data.name}.json`, payload)
@@ -43,7 +43,11 @@ const createBook = (bookObject) => new Promise((resolve, reject) => {
 });
 
 // TODO: UPDATE BOOK
-const updateBook = () => {};
+const updateBook = (bookObj) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/books/${bookObj.firebaseKey}.json`, bookObj)
+    .then(() => getBooks().then(resolve))
+    .catch(reject);
+});
 
 const booksOnSale = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/books.json?orderBy="sale"&equalTo=true`)
