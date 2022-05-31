@@ -1,10 +1,11 @@
 // import { deleteSingleAuthor } from '../../api/authorData';
-import { deleteBook } from '../../api/bookData';
+import { deleteBook, getSingleBook } from '../../api/bookData';
 import { viewBookDetails, viewAuthorDetails, deleteAuthorBooks } from '../../api/mergedData';
 import { showAuthors } from '../components/pages/authors';
 import { showBooks } from '../components/pages/books';
 import viewBook from '../components/pages/viewBook';
 import viewAuthor from '../components/pages/viewAuthor';
+import addBookForm from '../components/forms/addBookForm';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -18,12 +19,13 @@ const domEvents = () => {
 
     // TODO: CLICK EVENT FOR SHOWING FORM FOR ADDING A BOOK
     if (e.target.id.includes('add-book-btn')) {
-      console.warn('ADD BOOK');
+      addBookForm();
+      // console.warn('ADD BOOK');
     }
 
     if (e.target.id.includes('edit-book-btn')) {
-      console.warn('EDIT BOOK', e.target.id);
-      console.warn(e.target.id.split('--'));
+      const [, firebaseKey] = e.target.id.split('--');
+      getSingleBook(firebaseKey).then((bookObj) => addBookForm(bookObj));
     }
 
     if (e.target.id.includes('view-book-btn')) {
