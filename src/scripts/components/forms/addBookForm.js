@@ -17,7 +17,7 @@ const addBookForm = (obj = {}) => {
       </div>
       <div class="form-group">
         <label for="image">Image URL</label>
-        <input type="url" class="form-control" id="image" placeholder="Image URL" value="${obj.image || ''}" required>
+        <input type="url" class="form-control" id="image" placeholder="Image URL" value="${obj.image || ''}">
       </div>
       <div class="form-group">
         <label for="price">Price</label>
