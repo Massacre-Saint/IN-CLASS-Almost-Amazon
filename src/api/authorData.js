@@ -3,8 +3,8 @@ import firebaseConfig from './apiKeys';
 
 const dbUrl = firebaseConfig.databaseURL;
 
-const getAuthors = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/authors.json`)
+const getAuthors = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/authors.json?orderBy="uid"&equalTo="${uid}"`)
     .then((response) => {
       if (response.data) {
         resolve(Object.values(response.data));
@@ -22,7 +22,7 @@ const createAuthor = (authorObj) => new Promise((resolve, reject) => {
       const payload = { firebaseKey: response.data.name };
       axios.patch(`${dbUrl}/authors/${response.data.name}.json`, payload)
         .then(() => {
-          getAuthors().then(resolve);
+          getAuthors(authorObj.uid).then(resolve);
         });
     }).catch(reject);
 });
@@ -34,17 +34,19 @@ const getSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const getFavoriteAuthor = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/authors.json?orderBy="favorite"&equalTo=true`)
-    .then((response) => resolve(Object.values(response.data)))
-    .catch((error) => reject(error));
+const getFavoriteAuthor = (uid) => new Promise((resolve, reject) => {
+  getAuthors(uid)
+    .then((userAuthors) => {
+      const favAuthors = userAuthors.filter((author) => author.favorite);
+      resolve(favAuthors);
+    }).catch((error) => reject(error));
 });
 
 // FIXME: DELETE AUTHOR
 const deleteSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/authors/${firebaseKey}.json`)
     .then(() => {
-      getAuthors().then((authorsArray) => resolve(authorsArray));
+      getAuthors(firebaseKey.uid).then((authorsArray) => resolve(authorsArray));
     })
     .catch((error) => reject(error));
 });
@@ -52,7 +54,7 @@ const deleteSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
 // FIXME: UPDATE AUTHOR
 const updateAuthor = (authorObj) => new Promise((resolve, reject) => {
   axios.patch(`${dbUrl}/authors/${authorObj.firebaseKey}.json`, authorObj)
-    .then(() => getAuthors().then(resolve))
+    .then(() => getAuthors(authorObj.uid).then(resolve))
     .catch(reject);
 });
 

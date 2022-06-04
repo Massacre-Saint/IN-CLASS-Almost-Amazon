@@ -18,7 +18,7 @@ const formEvents = (uid) => {
         author_id: document.querySelector('#author_id').value,
         uid
       };
-      createBook(bookObject).then((booksArray) => showBooks(booksArray));
+      createBook(bookObject, uid).then((booksArray) => showBooks(booksArray));
     }
 
     // TODO: CLICK EVENT FOR EDITING A BOOK
@@ -31,10 +31,11 @@ const formEvents = (uid) => {
         description: document.querySelector('#description').value,
         sale: document.querySelector('#sale').checked,
         author_id: document.querySelector('#author_id').value,
-        firebaseKey
+        firebaseKey,
+        uid
       };
       updateBook(bookObj).then(() => {
-        getBooks().then((response) => showBooks(response));
+        getBooks(uid).then((response) => showBooks(response));
       });
     }
 
@@ -44,7 +45,8 @@ const formEvents = (uid) => {
         first_name: document.querySelector('#first_name').value,
         last_name: document.querySelector('#last_name').value,
         email: document.querySelector('#email').value,
-        favorite: document.querySelector('#favAuthor').checked
+        favorite: document.querySelector('#favAuthor').checked,
+        uid
       };
       createAuthor(authorObject).then((authorsArray) => showAuthors(authorsArray));
     }
@@ -56,10 +58,11 @@ const formEvents = (uid) => {
         last_name: document.querySelector('#last_name').value,
         email: document.querySelector('#email').value,
         favorite: document.querySelector('#favAuthor').checked,
-        firebaseKey
+        firebaseKey,
+        uid
       };
       updateAuthor(authorObj).then(() => {
-        getAuthors().then((response) => showAuthors(response));
+        getAuthors(uid).then((response) => showAuthors(response));
       });
     }
   });

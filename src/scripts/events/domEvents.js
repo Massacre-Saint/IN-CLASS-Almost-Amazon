@@ -8,25 +8,25 @@ import addBookForm from '../components/forms/addBookForm';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import { getSingleAuthor } from '../../api/authorData';
 
-const domEvents = () => {
+const domEvents = (uid) => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
     if (e.target.id.includes('delete-book')) {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
         const [, firebaseKey] = e.target.id.split('--');
-        deleteBook(firebaseKey).then((booksArray) => showBooks(booksArray));
+        deleteBook(uid, firebaseKey).then((booksArray) => showBooks(booksArray));
       }
     }
 
     // TODO: CLICK EVENT FOR SHOWING FORM FOR ADDING A BOOK
     if (e.target.id.includes('add-book-btn')) {
-      addBookForm();
+      addBookForm({}, uid);
       // console.warn('ADD BOOK');
     }
 
     if (e.target.id.includes('edit-book-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
-      getSingleBook(firebaseKey).then((bookObj) => addBookForm(bookObj));
+      getSingleBook(firebaseKey).then((bookObj) => addBookForm(bookObj, uid));
     }
 
     if (e.target.id.includes('view-book-btn')) {
@@ -37,7 +37,7 @@ const domEvents = () => {
     if (e.target.id.includes('view-author-btn')) {
       const [, authorFirebaseKey] = e.target.id.split('--');
       // console.warn(authorFirebaseKey);
-      viewAuthorDetails(authorFirebaseKey).then((authorsBooksObject) => viewAuthor(authorsBooksObject));
+      viewAuthorDetails(authorFirebaseKey).then((authorsBooksObject) => viewAuthor(authorsBooksObject)); // look into shorthand
     }
 
     if (e.target.id.includes('delete-author-btn')) {
@@ -46,7 +46,7 @@ const domEvents = () => {
         // console.warn('DELETE AUTHOR', e.target.id);
         // console.warn(e.target.id.split('--'));
         const [, firebaseKey] = e.target.id.split('--');
-        deleteAuthorBooks(firebaseKey).then((authorsArray) => showAuthors(authorsArray));
+        deleteAuthorBooks(firebaseKey, uid).then((authorsArray) => showAuthors(authorsArray));
       }
     }
 
