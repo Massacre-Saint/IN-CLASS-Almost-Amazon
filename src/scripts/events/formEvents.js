@@ -34,7 +34,7 @@ const formEvents = (uid) => {
         firebaseKey,
         uid
       };
-      updateBook(bookObj).then(() => {
+      updateBook(bookObj, uid).then(() => {
         getBooks(uid).then((response) => showBooks(response));
       });
     }
@@ -48,7 +48,7 @@ const formEvents = (uid) => {
         favorite: document.querySelector('#favAuthor').checked,
         uid
       };
-      createAuthor(authorObject).then((authorsArray) => showAuthors(authorsArray));
+      createAuthor(authorObject, uid).then((authorsArray) => showAuthors(authorsArray));
     }
     // FIXME:ADD CLICK EVENT FOR EDITING AN AUTHOR
     if (e.target.id.includes('update-author')) {
@@ -61,7 +61,7 @@ const formEvents = (uid) => {
         firebaseKey,
         uid
       };
-      updateAuthor(authorObj).then(() => {
+      updateAuthor(authorObj, uid).then(() => {
         getAuthors(uid).then((response) => showAuthors(response));
       });
     }
