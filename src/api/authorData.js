@@ -15,7 +15,6 @@ const getAuthors = (uid) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-// FIXME: CREATE AUTHOR
 const createAuthor = (authorObj, uid) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/authors.json`, authorObj)
     .then((response) => {
@@ -27,7 +26,6 @@ const createAuthor = (authorObj, uid) => new Promise((resolve, reject) => {
     }).catch(reject);
 });
 
-// FIXME: GET SINGLE AUTHOR    use this!!!!!!!!!!!!
 const getSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/authors/${firebaseKey}.json`)
     .then((response) => resolve(response.data))
@@ -42,7 +40,6 @@ const getFavoriteAuthor = (uid) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
-// FIXME: DELETE AUTHOR
 const deleteSingleAuthor = (firebaseKey, uid) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/authors/${firebaseKey}.json`)
     .then(() => {
@@ -51,14 +48,12 @@ const deleteSingleAuthor = (firebaseKey, uid) => new Promise((resolve, reject) =
     .catch((error) => reject(error));
 });
 
-// FIXME: UPDATE AUTHOR
 const updateAuthor = (authorObj, uid) => new Promise((resolve, reject) => {
   axios.patch(`${dbUrl}/authors/${authorObj.firebaseKey}.json`, authorObj)
     .then(() => getAuthors(uid).then(resolve))
     .catch(reject);
 });
 
-// TODO: GET A SINGLE AUTHOR'S BOOKS   use thissss!!!!!!!!!!!
 const getbooksByAuthor = (firebaseKey, uid) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${firebaseKey}"`)
     .then((response) => {

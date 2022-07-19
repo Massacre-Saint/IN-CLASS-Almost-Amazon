@@ -6,9 +6,7 @@ import { showBooks } from '../components/pages/books';
 const formEvents = (uid) => {
   document.querySelector('#main-container').addEventListener('submit', (e) => {
     e.preventDefault();
-    // TODO: CLICK EVENT FOR SUBMITTING FORM FOR ADDING A BOOK
     if (e.target.id.includes('submit-book')) {
-      // console.warn('CLICKED SUBMIT BOOK', e.target.id);
       const bookObject = {
         title: document.querySelector('#title').value,
         image: document.querySelector('#image').value,
@@ -21,7 +19,6 @@ const formEvents = (uid) => {
       createBook(bookObject, uid).then((booksArray) => showBooks(booksArray));
     }
 
-    // TODO: CLICK EVENT FOR EDITING A BOOK
     if (e.target.id.includes('update-book')) {
       const [, firebaseKey] = e.target.id.split('--');
       const bookObj = {
@@ -39,7 +36,6 @@ const formEvents = (uid) => {
       });
     }
 
-    // FIXME: ADD CLICK EVENT FOR SUBMITTING FORM FOR ADDING AN AUTHOR
     if (e.target.id.includes('submit-author')) {
       const authorObject = {
         first_name: document.querySelector('#first_name').value,
@@ -50,7 +46,6 @@ const formEvents = (uid) => {
       };
       createAuthor(authorObject, uid).then((authorsArray) => showAuthors(authorsArray));
     }
-    // FIXME:ADD CLICK EVENT FOR EDITING AN AUTHOR
     if (e.target.id.includes('update-author')) {
       const [, firebaseKey] = e.target.id.split('--');
       const authorObj = {

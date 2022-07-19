@@ -1,6 +1,5 @@
 import axios from 'axios';
 import firebaseConfig from './apiKeys';
-// API CALLS FOR BOOKS
 
 const dbUrl = firebaseConfig.databaseURL;
 
@@ -30,7 +29,6 @@ const getSingleBook = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-// TODO: CREATE BOOK
 const createBook = (bookObj, uid) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/books.json`, bookObj)
     .then((response) => {
@@ -42,7 +40,6 @@ const createBook = (bookObj, uid) => new Promise((resolve, reject) => {
     }).catch(reject);
 });
 
-// TODO: UPDATE BOOK
 const updateBook = (bookObj, uid) => new Promise((resolve, reject) => {
   axios.patch(`${dbUrl}/books/${bookObj.firebaseKey}.json`, bookObj)
     .then(() => getBooks(uid).then(resolve))
@@ -56,8 +53,6 @@ const booksOnSale = (uid) => new Promise((resolve, reject) => {
       resolve(saleBooks);
     }).catch((error) => reject(error));
 });
-
-// TODO: STRETCH...SEARCH BOOKS
 
 export {
   getBooks,

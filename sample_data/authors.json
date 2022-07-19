@@ -58,8 +58,8 @@
   "-MiBw4tCvNZd23yTVDQw" : {
     "email" : "jb@baldwin.com",
     "firebaseKey" : "-MiBw4tCvNZd23yTVDQw",
-    "first_name" : "James",
-    "last_name" : "Baldwin",
+    "firstName" : "James",
+    "lastName" : "Baldwin",
     "favorite": false,
     "uid": ""
   }
